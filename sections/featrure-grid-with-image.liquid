@@ -1,0 +1,172 @@
+{{ 'feature-grid.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+  
+    @media screen and (min-width: 750px) {
+      .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+{%- endstyle -%}
+
+<section id="{{ section.id }}" class="feature-grid-with-image color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+    <div class="page-width">
+        <div class="feature-grid-container">
+            <div class="feature-text-container feature_box">
+                <div class="heading-wrapper title-wrapper title-wrapper--no-top-margin">
+                    {%- if section.settings.section_heading != blank -%}
+                        <h2 class="title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+                            {{ section.settings.section_heading }}
+                        </h2>
+                    {%- endif -%}
+                    {% if section.settings.description != blank %}
+                        <div class="section-description description">
+                            <p class="description-content">{{ section.settings.description }}</p>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="feaure--grid-list feature-blocks">
+                    {% for block in section.blocks %}
+                        <div class="feature-item">
+                            {% if block.settings.feature_img != blank %}
+                                <div class="feature-img image-wrapper">
+                                    <img src="{{ block.settings.feature_img | image_url }}" alt="{{ section.settings.sidebar_image_desktop.alt }}" height="auto" width="100%" loading="lazy">
+                                </div>
+                            {% endif %}
+                            {% if block.settings.feature_heading != blank %}
+                                <p class="feature-heading">{{ block.settings.feature_heading }}</p>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="button-wrapper button-container">
+                    <a href="{{ section.settings.btn_link }}" class="button button--primary">{{ section.settings.btn_label }}</a>
+                </div>
+            </div>
+            <div class="feature-media-container feature_box">
+                    <img srcset="
+                        {%- if section.settings.sidebar_image_desktop.width >= 165 -%}{{ section.settings.sidebar_image_desktop | image_url: width: 165 }} 165w,{%- endif -%}
+                        {%- if section.settings.sidebar_image_desktop.width >= 360 -%}{{ section.settings.sidebar_image_desktop | image_url: width: 360 }} 360w,{%- endif -%}
+                        {%- if section.settings.sidebar_image_desktop.width >= 535 -%}{{ section.settings.sidebar_image_desktop | image_url: width: 535 }} 535w,{%- endif -%}
+                        {%- if section.settings.sidebar_image_desktop.width >= 750 -%}{{ section.settings.sidebar_image_desktop | image_url: width: 750 }} 750w,{%- endif -%}
+                        {%- if section.settings.sidebar_image_desktop.width >= 1070 -%}{{ section.settings.sidebar_image_desktop | image_url: width: 1070 }} 1070w,{%- endif -%}
+                        {%- if section.settings.sidebar_image_desktop.width >= 1500 -%}{{ section.settings.sidebar_image_desktop | image_url: width: 1500 }} 1500w,{%- endif -%}
+                        {{ section.settings.sidebar_image_desktop | image_url }} {{ section.settings.sidebar_image_desktop.width }}w"
+                    src="{{ section.settings.sidebar_image_desktop | image_url: width: 750 }}" sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc(50vw - 130px), calc(50vw - 55px)"
+                    alt="{{ section.settings.sidebar_image_desktop.alt | escape }}" width="{{ section.settings.sidebar_image_desktop.width }}" height="{{ section.settings.sidebar_image_desktop.height }}" loading="lazy">
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+    {
+      "name": "Feature Grid with Image",
+      "settings": [
+        {
+            "type": "inline_richtext",
+            "id": "section_heading",
+            "label": "Heading"
+        },
+        {
+            "type": "textarea",
+            "id": "description",
+            "label": "Content"
+        },
+        {
+            "type": "select",
+            "id": "heading_size",
+            "options": [ 
+            {
+                "value": "h2",
+                "label": "t:sections.all.heading_size.options__1.label"
+            },
+            {
+                "value": "h1",
+                "label": "t:sections.all.heading_size.options__2.label"
+            },
+            {
+                "value": "h0",
+                "label": "t:sections.all.heading_size.options__3.label"
+            }
+        ],
+            "default": "h1",
+            "label": "t:sections.all.heading_size.label"
+        },
+        {
+            "type": "image_picker",
+            "id": "sidebar_image_desktop",
+            "label": "Image"
+        },
+        {
+            "type": "text",
+            "id": "btn_label",
+            "label": "Button label"
+        },
+        {
+            "type": "url",
+            "id": "btn_link",
+            "label": "Button URL"
+        },
+        {
+            "type": "color_scheme",
+            "id": "color_scheme",
+            "label": "t:sections.all.colors.label",
+            "info": "t:sections.all.colors.has_cards_info",
+            "default": "scheme-1"
+        },
+        {
+            "type": "header",
+            "content": "t:sections.all.padding.section_padding_heading"
+        },
+        {
+            "type": "range",
+            "id": "padding_top",
+            "min": 0,
+            "max": 100,
+            "step": 4,
+            "unit": "px",
+            "label": "t:sections.all.padding.padding_top",
+            "default": 36
+        },
+        {
+            "type": "range",
+            "id": "padding_bottom",
+            "min": 0,
+            "max": 100,
+            "step": 4,
+            "unit": "px",
+            "label": "t:sections.all.padding.padding_bottom",
+            "default": 36
+        }
+      ],
+      "blocks": [
+        {
+            "type": "feature",
+            "name": "Feature",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "feature_img",
+                    "label": "Image"
+                },
+                {
+                    "type": "text",
+                    "id": "feature_heading",
+                    "label": "Title"
+                }
+            ]
+        }
+      ],
+      "presets": [
+        {
+          "name": "Feature Grid with Image"
+        }
+      ]
+    }
+{% endschema %}

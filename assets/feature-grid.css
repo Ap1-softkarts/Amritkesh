@@ -1,0 +1,202 @@
+.feature-grid-with-image .title-wrapper {
+    margin-bottom: 0;
+}
+
+.feature-grid-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: stretch;
+	gap: 80px;
+	position: relative;
+}
+
+.feature_box {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-self: stretch;
+    gap: 40px;
+    flex-basis: 0%;
+    flex-grow: 6;
+    flex-shrink: 1;
+}
+.feature-media-container img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+}
+.feature-img.image-wrapper {
+	height: 48px;
+	position: relative;
+	width: 48px;
+}
+.feaure--grid-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 30px;
+}
+.feature-item {
+	display: flex;
+	align-items: stretch;
+	flex-direction: column;
+	justify-content: flex-start;
+	gap: 12px;
+    width: calc(50% - 30px);
+}
+.feature-item .feature-heading {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 26px;
+    letter-spacing: normal;
+
+}
+.description-content {
+	margin: 0;
+	font-size: 20px;
+	line-height: 30px;
+	font-weight: 500;
+    letter-spacing: normal;
+}
+.feature-text-container .button-wrapper .button::before,
+.feature-text-container .button-wrapper .button::after {
+    content: unset;
+}
+.feature-text-container .button-wrapper .button {
+    font-size: 20px;
+    line-height: 28px;
+    padding: 16px 32px;
+    margin-top: 10px;
+    background: #79c2ee;
+    transition: all .3s ease;
+}
+.feature-text-container .button-wrapper .button:hover {
+    background: #000;
+}
+
+.why-us .taglines-list {
+    row-gap: 10px;
+}
+.taglines-list .tagline-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #d1d5db;
+    border-radius: 16px;
+    width: 100%;
+}
+.taglines-list .tagline-item span {
+    flex: none;
+    font-size: 20px;
+    margin-right: 8px;
+}
+.taglines-list .tagline-item .tagline-heading {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 30px;
+    margin: 0;
+}
+.tagline-item.last-item {
+    flex-direction: column;
+}
+.tagline-item.last-item .last-list-item {
+    display: flex;
+    align-items: center;
+}
+.tagline-item.last-item .button-wrapper {
+    width: 100%;
+    margin-top: 15px;
+}
+
+.why-us-container.grid-reverse {
+    flex-direction: row-reverse;
+}
+.why-us-container .why-us-image {
+    max-height: 100% !important;
+    align-self: stretch;
+}
+.why-us-container .why-us-image img {
+    height: 100% !important;
+}
+.why-us .feature-text-container {
+    gap: 0;
+}
+
+@media (max-width: 1024px) {
+    .feature-grid-container {
+        flex-direction: column-reverse;
+        gap: 40px;
+    }
+    .feature-media-container.feature_box {
+        height: auto;
+        max-height: 480px;
+    }
+    .feature-media-container.feature_box img {
+        height: auto;
+        width: 100%;
+        min-height: 0;
+        object-fit: cover;
+    }
+    .why-us .page-width {
+        padding: 0 5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .feature-grid-with-image .page-width {
+        padding: 0;
+    }
+    .why-us .page-width {
+        padding: 0 2rem;
+    }
+    .why-us .feature-text-container {
+        padding: 0;
+    }
+    .feature-text-container {
+        padding: 0 45px;
+    }
+    .feature-text-container .button-wrapper,
+    .feature-text-container .button-wrapper .button  {
+        width: 100%;
+    }
+    .description-content {
+        font-size: 18px;
+        line-height: 27px;
+        letter-spacing: -0.180px;
+    }
+    .why-us-container.grid-reverse {
+        flex-direction: column-reverse;
+        gap: 20px;
+    }
+    .why-us .feature-text-container .button-wrapper .button {
+        width: auto;
+    }
+}
+
+@media (max-width: 575px) {
+    .feature-grid-with-image {
+        padding-top: 0 !important;
+    }
+    .feature-text-container {
+        padding: 0 25px;
+    }
+    .feature-item {
+        width: calc(50% - 20px);
+    }
+    .taglines-list .tagline-item .tagline-heading {
+        font-size: 16px;
+        line-height: 24px;
+    }
+    .taglines-list .tagline-item span {
+        font-size: 16px;
+    }
+    .tagline-item.last-item .button-wrapper {
+        margin-top: 5px;
+    }
+}

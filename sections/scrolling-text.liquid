@@ -1,0 +1,125 @@
+{{ 'scrolling-text.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+  
+    @media screen and (min-width: 750px) {
+      .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+    #{{ section.id }} .scroll-block {
+        animation-direction: {{ section.settings.animation_direction }};
+        animation-duration: {{ section.settings.animation_duration }}s;
+    }
+    .scrolling-text {
+        /* background: transparent linear-gradient(90deg,#96DCE4,#d7d7d7 50%,#cceef1) 0% 0% no-repeat padding-box; */
+    } 
+{%- endstyle -%}
+
+<section id="{{ section.id }}" class="scrolling-text color-{{ section.settings.color_scheme }} gradient">
+    <div class="section-{{ section.id }}-padding">
+        <div class="scrolling-text-container">
+            {% capture cloned_blocks %}
+                {% for block in section.blocks %}
+                    {% if block.settings.scroll_text != blank %}
+                        <div class="instant-text">{{ block.settings.scroll_text }}</div>
+                    {% endif %}
+                {% endfor %}
+            {% endcapture %}
+            <div class="scroll-block">
+                {{ cloned_blocks }}
+            </div>
+            <div class="scroll-block">
+                {{ cloned_blocks }}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+    {
+      "name": "Scrolling Text",
+      "settings": [
+        {
+            "type": "select",
+            "id": "animation_direction",
+            "options": [
+                {
+                    "value": "normal",
+                    "label": "Normal"
+                },
+                {
+                    "value": "reverse", 
+                    "label": "Reverse"
+                } 
+            ],
+            "default": "normal",
+            "label": "Scroll Direction"
+        },
+        {
+            "type": "range",
+            "id": "animation_duration",
+            "min": 5,
+            "max": 70,
+            "step": 1,
+            "unit": "sec",
+            "label": "Animation Duration",
+            "default": 40
+        },
+        {
+            "type": "color_scheme",
+            "id": "color_scheme",
+            "label": "t:sections.all.colors.label",
+            "info": "t:sections.all.colors.has_cards_info",
+            "default": "scheme-1"
+        },
+        {
+            "type": "header",
+            "content": "t:sections.all.padding.section_padding_heading"
+        },
+        {
+            "type": "range",
+            "id": "padding_top",
+            "min": 0,
+            "max": 100,
+            "step": 4,
+            "unit": "px",
+            "label": "t:sections.all.padding.padding_top",
+            "default": 36
+        },
+        {
+            "type": "range",
+            "id": "padding_bottom",
+            "min": 0,
+            "max": 100,
+            "step": 4,
+            "unit": "px",
+            "label": "t:sections.all.padding.padding_bottom",
+            "default": 36
+        }
+      ],
+      "blocks": [
+        {
+            "type": "text",
+            "name": "Text",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "scroll_text",
+                    "label": "Content"
+                }
+            ]
+        }
+      ],
+      "presets": [
+        {
+          "name": "Scrolling Text"
+        }
+      ]
+    }
+{% endschema %}

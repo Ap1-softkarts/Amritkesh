@@ -1,0 +1,128 @@
+.ingredients {
+    background-image: var(--custom-gredient-color-transparent);
+}
+.ingredients .tagline-wrapper.tagline-list {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 42px;
+}
+.ingredients .tagline-item {
+	display: flex;
+	align-items: center;
+	column-gap: 10px;
+    margin: 0 15px;
+    padding: 3px 0 3px 30px;
+}
+.ingredients .tagline-image {
+    object-fit: cover;
+}
+.ingredients .tagline-title {
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: normal;
+    font-weight: 300;
+}
+.ingredients .ingredient-list-inner {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 16px;
+	margin-bottom: 32px;
+}
+.ingredients .ingredient-item {
+	display: flex;
+	border-radius: 8px;
+	align-items: center;
+	background: var(--gradient-background);
+    overflow: hidden;
+}
+.ingredients .ingredient-image {
+	width: 162px;
+}
+.ingredients .ingredient-image img {
+	max-width: 100%;
+    width: 100%;
+    height: 100%;
+}
+.ingredients .ingredient-content {
+	padding: 29px 25px;
+	width: calc(100% - 162px);
+}
+.ingredients .ingredient-heading {
+	font-size: 21px;
+	line-height: 16px;
+	font-weight: 700;
+	letter-spacing: 0;
+	margin-bottom: 5px;
+}
+.ingredients .ingredient-qty {
+	letter-spacing: 0px;
+	margin-bottom: 11px;
+	font-size: 17px;
+	line-height: 16px;
+	font-style: italic;
+}
+.ingredient-description {
+	font-size: 17px;
+	line-height: 20px;
+	letter-spacing: 0;
+}
+
+@media screen and (max-width: 989px) {
+    .ingredients .tagline-wrapper.tagline-list {
+        margin-bottom: 20px;
+    }
+    .ingredients .tagline-item {
+        gap: 8px;
+        padding: 0 0 0 15px;
+        margin: 0 10px 10px 0;
+    }
+    .ingredients .tagline-title {
+        font-size: 13px;
+        line-height: 15px;
+    }
+    .ingredients .tagline-image {
+        height: 18px;
+        width: 18px;
+    }
+    .ingredients .ingredient-list-inner {
+        display: flex;
+        overflow: auto;
+        gap: unset;
+        margin-right: -15px;
+        margin-bottom: 32px;
+    }
+    .ingredients .ingredient-item {
+        min-width: 283px;
+        margin-right: 11px;
+    }
+    .ingredients .ingredient-image {
+        width: 109px;
+    }
+    .ingredients .ingredient-content {
+        padding: 21px 0px 21px 15px;
+        width: calc(100% - 109px);
+    }
+    .ingredients .page-width {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .ingredients .ingredient-heading {
+        font-size: 16px;
+        line-height: 16px;
+    }
+    .ingredients .ingredient-qty {
+        font-size: 14px;
+        line-height: 16px;
+    }
+    .ingredient-description {
+        font-size: 13px;
+        line-height: 16px;
+    }
+}
+
+@media screen and (max-width: 749px) {
+    .ingredients .tagline-wrapper.tagline-list {
+        flex-wrap: wrap;
+        margin-bottom: 15px;
+    }
+}

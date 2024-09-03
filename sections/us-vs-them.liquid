@@ -1,0 +1,254 @@
+{{ 'comparison-them-us.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+  
+    @media screen and (min-width: 750px) {
+      .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+    .section-{{ section.id }}-padding .page-width--narrow {
+        margin: 0 auto;
+    }
+    .us-desc.description::after{
+        background: url('{{ section.settings.icon_true | image_url }}');
+    } 
+    .them-desc.description::after{
+        background: url('{{ section.settings.icon_false | image_url }}');
+    } 
+    @media (max-width: 749px) {
+        .section-{{ section.id }}-padding .page-width--narrow {
+            padding: 0 15px;
+        }
+    }
+{%- endstyle -%}
+
+<section id="{{ section.id }}" class="comparison-them-us color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+    <div class="page-width--narrow">
+        <div class="heading-wrapper title-wrapper title-wrapper--no-top-margin">
+            {% if section.settings.section_subheading != blank %}
+                <p class="section-subheading">{{ section.settings.section_subheading }}</p>
+            {% endif %}
+            {%- if section.settings.section_heading != blank -%}
+                <h2 class="title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+                    {{ section.settings.section_heading }}
+                </h2>
+            {%- endif -%}
+            {% if section.settings.description != blank %}
+                <p class="section-descrption">{{ section.settings.description }}</p>
+            {% endif %}
+        </div>
+        <div class="compare-image">
+            {% if section.settings.image_us != blank %}
+                <div class="image-us-wrapper compare-image-container">
+                    <img class="image-us" srcset="
+                        {%- if section.settings.image_us.width >= 165 -%}{{ section.settings.image_us | image_url: width: 165 }} 165w,{%- endif -%}
+                        {%- if section.settings.image_us.width >= 360 -%}{{ section.settings.image_us | image_url: width: 360 }} 360w,{%- endif -%}
+                        {%- if section.settings.image_us.width >= 535 -%}{{ section.settings.image_us | image_url: width: 535 }} 535w,{%- endif -%}
+                        {%- if section.settings.image_us.width >= 750 -%}{{ section.settings.image_us | image_url: width: 750 }} 750w,{%- endif -%}
+                        {%- if section.settings.image_us.width >= 1070 -%}{{ section.settings.image_us | image_url: width: 1070 }} 1070w,{%- endif -%}
+                        {%- if section.settings.image_us.width >= 1500 -%}{{ section.settings.image_us | image_url: width: 1500 }} 1500w,{%- endif -%}
+                        {{ section.settings.image_us | image_url }} {{ section.settings.image_us.width }}w"
+                    src="{{ section.settings.image_us | image_url: width: 750 }}" sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc(50vw - 130px), calc(50vw - 55px)"
+                    alt="{{ section.settings.image_us.alt | escape }}" width="{{ section.settings.image_us.width }}" height="{{ section.settings.image_us.height }}" loading="lazy">
+                    <img class="badge__image" src="{{ section.settings.image_badge | image_url }}" alt="{{ section.settings.image_badge.alt }}" loading="lazy" height="auto" width="100%">
+                </div>
+            {% endif %}
+            <div class="compare-text-wrapper">
+                VS.
+            </div>
+            {% if section.settings.image_them != blank %}
+                <div class="image-them-wrapper compare-image-container">
+                    <img class="image-them" srcset="
+                        {%- if section.settings.image_them.width >= 165 -%}{{ section.settings.image_them | image_url: width: 165 }} 165w,{%- endif -%}
+                        {%- if section.settings.image_them.width >= 360 -%}{{ section.settings.image_them | image_url: width: 360 }} 360w,{%- endif -%}
+                        {%- if section.settings.image_them.width >= 535 -%}{{ section.settings.image_them | image_url: width: 535 }} 535w,{%- endif -%}
+                        {%- if section.settings.image_them.width >= 750 -%}{{ section.settings.image_them | image_url: width: 750 }} 750w,{%- endif -%}
+                        {%- if section.settings.image_them.width >= 1070 -%}{{ section.settings.image_them | image_url: width: 1070 }} 1070w,{%- endif -%}
+                        {%- if section.settings.image_them.width >= 1500 -%}{{ section.settings.image_them | image_url: width: 1500 }} 1500w,{%- endif -%}
+                        {{ section.settings.image_them | image_url }} {{ section.settings.image_us.width }}w"
+                    src="{{ section.settings.image_them | image_url: width: 750 }}" sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc(50vw - 130px), calc(50vw - 55px)"
+                    alt="{{ section.settings.image_them.alt | escape }}" width="{{ section.settings.image_them.width }}" height="{{ section.settings.image_them.height }}" loading="lazy">
+                </div>
+            {% endif %}
+        </div>
+        <div class="comparison-points list-compare">
+            {% for block in section.blocks %}
+                <div class="compare-item">                           
+                    {% if block.settings.us_desc != blank %}
+                        <p class="us-desc description">{{ block.settings.us_desc }}</p>
+                    {% endif %}
+                    {% if block.settings.them_desc != blank %}
+                        <p class="them-desc description">{{ block.settings.them_desc }}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        {% if section.settings.additional_info != blank %}
+            <div class="additional-info" style="color: {{ section.settings.text_color }};">
+                {{ section.settings.additional_info }}
+            </div>
+        {% endif %}
+        {% if section.settings.button_label %}
+            <div class="button-wrapper">
+                <a href="{{ section.settings.button_link }}" class="button button--primary">{{ section.settings.button_label }}</a>
+            </div>
+        {% endif %}
+        {% if section.settings.button_aditional_text != blank %}
+            <span class="btn-additional-text">{{ section.settings.button_aditional_text }}</span>  
+        {% endif %}
+    </div>
+</section>
+
+{% schema %}
+    {
+      "name": "Us vs Them",
+      "settings": [
+        {
+            "type": "inline_richtext",
+            "id": "section_heading",
+            "label": "Heading"
+        },
+        {
+            "type": "text",
+            "id": "section_subheading",
+            "label": "Subheading"
+        },
+        {
+            "type": "text",
+            "id": "description",
+            "label": "Description"
+        },
+        {
+            "type": "select",
+            "id": "heading_size",
+            "options": [ 
+            {
+                "value": "h2",
+                "label": "t:sections.all.heading_size.options__1.label"
+            },
+            {
+                "value": "h1",
+                "label": "t:sections.all.heading_size.options__2.label"
+            },
+            {
+                "value": "h0",
+                "label": "t:sections.all.heading_size.options__3.label"
+            }
+        ],
+            "default": "h1",
+            "label": "t:sections.all.heading_size.label"
+        },
+        {
+            "type": "image_picker",
+            "id": "image_us",
+            "label": "Image (us)"
+        },
+        {
+            "type": "image_picker",
+            "id": "image_badge",
+            "label": "Badge Image"
+        },
+        {
+            "type": "image_picker",
+            "id": "image_them",
+            "label": "Image (Them)"
+        },
+        {
+            "type": "image_picker",
+            "id": "icon_true",
+            "label": "Icon true"
+        },
+        {
+            "type": "image_picker",
+            "id": "icon_false",
+            "label": "Icon false"
+        },
+        {
+            "type": "richtext",
+            "id": "additional_info",
+            "label": "Additional info"
+        },
+        {
+            "type": "color",
+            "id": "text_color",
+            "label": "Text Color",
+            "default": "#000"
+        },
+        {
+            "type": "text",
+            "id": "button_label",
+            "label": "Button label"
+        },
+        {
+            "type": "url",
+            "id": "button_link",
+            "label": "Button link"
+        },
+        {
+            "type": "text",
+            "id": "button_aditional_text",
+            "label": "Button additional text"
+        },
+        {
+            "type": "color_scheme",
+            "id": "color_scheme",
+            "label": "t:sections.all.colors.label",
+            "info": "t:sections.all.colors.has_cards_info",
+            "default": "scheme-1"
+        },
+        {
+            "type": "header",
+            "content": "t:sections.all.padding.section_padding_heading"
+        },
+        {
+            "type": "range",
+            "id": "padding_top",
+            "min": 0,
+            "max": 100,
+            "step": 4,
+            "unit": "px",
+            "label": "t:sections.all.padding.padding_top",
+            "default": 36
+        },
+        {
+            "type": "range",
+            "id": "padding_bottom",
+            "min": 0,
+            "max": 100,
+            "step": 4,
+            "unit": "px",
+            "label": "t:sections.all.padding.padding_bottom",
+            "default": 36
+        }
+      ],
+      "blocks": [
+        {
+            "type": "vs_description",
+            "name": "Description (Us vs Them)",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "us_desc",
+                    "label": "Our Description"
+                },
+                {
+                    "type": "text",
+                    "id": "them_desc",
+                    "label": "Them Description"
+                }
+            ]
+        }
+      ],
+      "presets": [
+        {
+          "name": "Us vs Them"
+        }
+      ]
+    }
+{% endschema %}
